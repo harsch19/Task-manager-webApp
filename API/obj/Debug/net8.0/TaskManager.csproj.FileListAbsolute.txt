@@ -127,3 +127,4 @@ C:\Users\HarschJadhav\Corporate Data\OneDrive - TOR.AI LIMITED\TaskManager\API\b
 C:\Users\HarschJadhav\Corporate Data\OneDrive - TOR.AI LIMITED\TaskManager\API\bin\Debug\net8.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\HarschJadhav\Corporate Data\OneDrive - TOR.AI LIMITED\TaskManager\API\bin\Debug\net8.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\HarschJadhav\Corporate Data\OneDrive - TOR.AI LIMITED\TaskManager\API\bin\Debug\net8.0\runtimes\win-x86\native\e_sqlite3.dll
+C:\Users\HarschJadhav\Corporate Data\OneDrive - TOR.AI LIMITED\TaskManager\API\obj\Debug\net8.0\TaskManager.sourcelink.json

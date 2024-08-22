@@ -1,58 +1,31 @@
-<form #taskForm="ngForm" class="row g-4 p-4 border rounded shadow-sm bg-light" (ngSubmit)="addTask()">
+<form [formGroup]="taskForm" class="row g-4 p-5 border rounded shadow-sm bg-light" (ngSubmit)="addTask()">
     <div class="col-md-4">
-      <label for="title" class="form-label fw-bold">Title</label>
-      <input
-        type="text"
-        class="form-control"
-        id="title"
-        placeholder="Enter title"
-        [(ngModel)]="task.title"
-        name="title"
-        required
-        #title="ngModel"
-      />
-      <div *ngIf="title.invalid && title.touched" class="text-danger">
-        *Title is required.
-      </div>
+        <label for="title" class="form-label fw-bold">Title</label>
+        <input type="text" class="form-control" id="title" formControlName="title" placeholder="Enter title" />
+        <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched" class="text-danger">
+            *Title is required.
+        </div>
     </div>
-    
+
     <div class="col-md-4">
-      <label for="description" class="form-label fw-bold">Description</label>
-      <input
-        type="text"
-        class="form-control"
-        id="description"
-        placeholder="Enter description"
-        [(ngModel)]="task.description"
-        name="description"
-        required
-        #description="ngModel"
-      />
-      <div *ngIf="description.invalid && description.touched" class="text-danger">
-        *Description is required.
-      </div>
+        <label for="description" class="form-label fw-bold">Description</label>
+        <input type="text" class="form-control" id="description" formControlName="description"
+            placeholder="Enter description" />
+        <div *ngIf="taskForm.get('description')?.invalid && taskForm.get('description')?.touched" class="text-danger">
+            *Description is required.
+        </div>
     </div>
-    
+
     <div class="col-md-4">
-      <label for="status" class="form-label fw-bold">Status</label>
-      <input
-        type="text"
-        class="form-control"
-        id="status"
-        placeholder="Enter status"
-        [(ngModel)]="task.status"
-        name="status"
-        required
-        #status="ngModel"
-      />
-      <div *ngIf="status.invalid && status.touched" class="text-danger">
-        *Status is required.
-      </div>
+        <label for="status" class="form-label fw-bold">Status</label>
+        <input type="text" class="form-control" id="status" formControlName="status" placeholder="Enter status" />
+        <div *ngIf="taskForm.get('status')?.invalid && taskForm.get('status')?.touched" class="text-danger">
+            *Status is required.
+        </div>
     </div>
-  
+
     <div class="col-12 text-center">
-      <button type="submit" class="btn btn-primary btn-lg m-2" [disabled]="taskForm.invalid">Add Task</button>
-      <button type="button" class="btn btn-danger btn-lg m-2" (click)="cancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary btn-lg m-2" [disabled]="taskForm.invalid">Add Task</button>
+        <button type="button" class="btn btn-danger btn-lg m-2" (click)="cancel()">Cancel</button>
     </div>
-  </form>
-  
+</form>

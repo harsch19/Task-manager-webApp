@@ -1,43 +1,48 @@
-<form class="row g-4 p-4 border rounded shadow-sm bg-light" (ngSubmit)="updateTask()">
-    <div class="col-md-4">
+<form [formGroup]="taskForm" class="row g-4 p-5 border rounded shadow-sm bg-light" (ngSubmit)="updateTask()">
+  <div class="col-md-4">
       <label for="title" class="form-label fw-bold">Title</label>
       <input
-        type="text"
-        class="form-control"
-        id="title"
-        placeholder="Enter title"
-        [(ngModel)]="task.title"
-        name="title"
-        required
+          type="text"
+          class="form-control"
+          id="title"
+          formControlName="title"
+          placeholder="Enter title"
       />
-    </div>
-    <div class="col-md-4">
+      <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched" class="text-danger">
+          *Title is required.
+      </div>
+  </div>
+
+  <div class="col-md-4">
       <label for="description" class="form-label fw-bold">Description</label>
       <input
-        type="text"
-        class="form-control"
-        id="description"
-        placeholder="Enter description"
-        [(ngModel)]="task.description"
-        name="description"
-        required
+          type="text"
+          class="form-control"
+          id="description"
+          formControlName="description"
+          placeholder="Enter description"
       />
-    </div>
-    <div class="col-md-4">
+      <div *ngIf="taskForm.get('description')?.invalid && taskForm.get('description')?.touched" class="text-danger">
+          *Description is required.
+      </div>
+  </div>
+
+  <div class="col-md-4">
       <label for="status" class="form-label fw-bold">Status</label>
       <input
-        type="text"
-        class="form-control"
-        id="status"
-        placeholder="Enter status"
-        [(ngModel)]="task.status"
-        name="status"
-        required
+          type="text"
+          class="form-control"
+          id="status"
+          formControlName="status"
+          placeholder="Enter status"
       />
-    </div>
-    <div class="col-12 text-center">
-      <button type="submit" class="btn btn-primary btn-lg m-2">Update Task</button>
+      <div *ngIf="taskForm.get('status')?.invalid && taskForm.get('status')?.touched" class="text-danger">
+          *Status is required.
+      </div>
+  </div>
+
+  <div class="col-12 text-center">
+      <button type="submit" class="btn btn-primary btn-lg m-2" [disabled]="taskForm.invalid">Update Task</button>
       <button type="button" class="btn btn-danger btn-lg m-2" (click)="cancel()">Cancel</button>
-    </div>
-  </form>
-  
+  </div>
+</form>

@@ -1,33 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { FormService } from '../../services/form.service';
 import { TaskService } from '../../services/task.service';
-import { Task } from '../../models/task';
-import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
+import { NotificationService } from 'src/app/services/notification-service.service';
 
 @Component({
-    selector: 'app-add-task',
-    templateUrl: './add-task.component.html',
-    styleUrls: ['./add-task.component.css']
+  selector: 'app-add-task',
+  templateUrl: './add-task.component.html',
+  styleUrls: ['./add-task.component.css']
 })
 export class AddTaskComponent {
-    task: Task = {
-        title: '',
-        description: '',
-        status: ''
-    };
+  taskForm: FormGroup;
 
-    constructor (
-        private taskService: TaskService, 
-        private router: Router
-    ) { }
+  constructor(
+    private formService: FormService,
+    private taskService: TaskService,
+    private dialogRef: MatDialogRef<AddTaskComponent>,
+    private notificationService: NotificationService
+  ) {
+    this.taskForm = this.formService.createTaskForm();
+  }
 
-    addTask() {
-        this.taskService.addTask(this.task).subscribe((task) => {
-            console.log('Task added:', task);
-            this.router.navigate(['/']);
-        });
+  async addTask() {
+    if (this.taskForm.valid) {
+      this.taskService.addTask(this.taskForm.value).subscribe((task) => {
+        console.log('Task added:', task);
+        this.notificationService.notifyTaskAdded();
+      });
+      this.dialogRef.close();
     }
+  } 
 
-    cancel() {
-        this.router.navigate(['/']);
-    }
+  cancel() {
+    this.dialogRef.close(); 
+  }
 }

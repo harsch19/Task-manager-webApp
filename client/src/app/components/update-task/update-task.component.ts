@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task.service';
-import { Task } from '../../models/task';
+import { FormService } from 'src/app/services/form.service';
+import { FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { NotificationService } from 'src/app/services/notification-service.service';
 
 @Component({
     selector: 'app-update-task',
@@ -9,38 +11,39 @@ import { Task } from '../../models/task';
     styleUrls: ['./update-task.component.css']
 })
 export class UpdateTaskComponent implements OnInit {
-    task: Task = {
-        title: '',
-        description: '',
-        status: ''
-    };
+    taskForm: FormGroup;
+    taskId: number;
 
     constructor(
-        private route: ActivatedRoute, 
-        private router: Router,
-        private taskService: TaskService
-    ) { }
+        private taskService: TaskService,
+        private formService: FormService,
+        private dialogRef: MatDialogRef<UpdateTaskComponent>,
+        private notificationService: NotificationService,
+        @Inject(MAT_DIALOG_DATA) public data: any
+    ) {
+        this.taskForm = this.formService.createTaskForm();
+        this.taskId = data.taskId;
+    }
 
     ngOnInit(): void {
-        const id = this.route.snapshot.paramMap.get('id'); 
-        if (id) {
-        this.taskService.getTask(id).subscribe((task) => {
-            this.task = task; 
-        });
+        if (this.taskId) {
+            this.taskService.getTask(this.taskId).subscribe((task) => {
+                this.taskForm.patchValue(task);
+            });
         }
     }
 
     updateTask() {
-        const id = this.route.snapshot.paramMap.get('id'); 
-        if (id) {
-        this.taskService.updateTask(id, this.task).subscribe((task) => {
-            console.log('Task updated:', task); 
-            this.router.navigate(['/']);
-        });
+        if (this.taskId && this.taskForm.valid) {
+            this.taskService.updateTask(this.taskId, this.taskForm.value).subscribe((task) => {
+                console.log('Task updated:', task);
+                this.dialogRef.close();
+                this.notificationService.notifyTaskUpdated();
+            });
         }
     }
-    
+
     cancel() {
-        this.router.navigate(['/']);
+        this.dialogRef.close(); 
     }
 }
