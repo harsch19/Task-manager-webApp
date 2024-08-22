@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { AddTaskComponent } from './components/add-task/add-task.component';
 import { UpdateTaskComponent } from './components/update-task/update-task.component';
-import { AppRoutingModule } from './app-routes';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -24,7 +23,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     imports: [
         BrowserModule,
         FormsModule,
-        AppRoutingModule,
         HttpClientModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,

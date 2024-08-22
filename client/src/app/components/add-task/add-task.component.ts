@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '../../services/form.service';
 import { TaskService } from '../../services/task.service';
@@ -26,9 +26,9 @@ export class AddTaskComponent {
     if (this.taskForm.valid) {
       this.taskService.addTask(this.taskForm.value).subscribe((task) => {
         console.log('Task added:', task);
+        this.dialogRef.close();
         this.notificationService.notifyTaskAdded();
       });
-      this.dialogRef.close();
     }
   } 
 
