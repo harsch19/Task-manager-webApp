@@ -23,15 +23,8 @@ export class TaskListComponent implements OnInit {
     ngOnInit(): void {
         this.displayTasks();
 
-        this.notificationService.taskAdded$.subscribe(() => {
-            this.displayTasks();
-        });
-
-        this.notificationService.taskUpdated$.subscribe(() => {
-            this.displayTasks();
-        });
-      
-        this.notificationService.taskDeleted$.subscribe(() => {
+        this.notificationService.taskEvent$.subscribe((event) => {
+            console.log(`Task ${event}.`);
             this.displayTasks();
         });
     }
@@ -51,7 +44,7 @@ export class TaskListComponent implements OnInit {
     deleteTask(task: Task): void {
         if (task.id) {
             this.taskService.deleteTask(task.id).subscribe(() => {
-                this.notificationService.notifyTaskDeleted();
+                this.notificationService.notifyTaskEvent("Deleted");
             });
         }
     }

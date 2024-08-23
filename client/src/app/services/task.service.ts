@@ -19,12 +19,12 @@ export class TaskService {
         return this.http.get<Task>(`${this.apiUrl}/getbyid/${id}`);
     }
 
-    addTask(task: Task): Observable<Task> {
-        return this.http.post<Task>(`${this.apiUrl}/add`, task);
+    addTask(task: Task): Observable<void> {
+        return this.http.post<void>(`${this.apiUrl}/add`, task);
     }
 
-    updateTask(id: number, task: Task): Observable<Task> {
-        return this.http.put<Task>(`${this.apiUrl}/update/${id}`, task);
+    updateTask(id: number, task: Task): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/update/${id}`, task);
     }
 
     deleteTask(id: number): Observable<void> {

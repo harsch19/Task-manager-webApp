@@ -17,16 +17,8 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.notificationService.taskAdded$.subscribe(() => {
-      this.showAlert('Success! Task Added.');
-    });
-
-    this.notificationService.taskUpdated$.subscribe(() => {
-      this.showAlert('Success! Task Updated.');
-    });
-
-    this.notificationService.taskDeleted$.subscribe(() => {
-      this.showAlert('Success! Task Deleted.');
+    this.notificationService.taskEvent$.subscribe((event) => {
+      this.showAlert(`Success! Task ${event}.`);
     });
   }
 

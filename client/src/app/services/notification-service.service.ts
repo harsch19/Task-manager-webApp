@@ -5,23 +5,11 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class NotificationService {
-  private taskAddedSource = new Subject<void>();
-  private taskUpdatedSource = new Subject<void>();
-  private taskDeletedSource = new Subject<void>();
+  private taskEventSource = new Subject<string>();
 
-  taskAdded$ = this.taskAddedSource.asObservable();
-  taskUpdated$ = this.taskUpdatedSource.asObservable();
-  taskDeleted$ = this.taskDeletedSource.asObservable();
+  taskEvent$ = this.taskEventSource.asObservable();
 
-  notifyTaskAdded() {
-    this.taskAddedSource.next();
-  }
-
-  notifyTaskUpdated() {
-    this.taskUpdatedSource.next();
-  }
-
-  notifyTaskDeleted() {
-    this.taskDeletedSource.next();
+  notifyTaskEvent(event: string) {
+    this.taskEventSource.next(event);
   }
 }

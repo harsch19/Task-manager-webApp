@@ -24,10 +24,9 @@ export class AddTaskComponent {
 
   async addTask() {
     if (this.taskForm.valid) {
-      this.taskService.addTask(this.taskForm.value).subscribe((task) => {
-        console.log('Task added:', task);
+      this.taskService.addTask(this.taskForm.value).subscribe(() => {
         this.dialogRef.close();
-        this.notificationService.notifyTaskAdded();
+        this.notificationService.notifyTaskEvent("Added");
       });
     }
   } 

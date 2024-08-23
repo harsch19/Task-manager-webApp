@@ -35,10 +35,9 @@ export class UpdateTaskComponent implements OnInit {
 
     updateTask() {
         if (this.taskId && this.taskForm.valid) {
-            this.taskService.updateTask(this.taskId, this.taskForm.value).subscribe((task) => {
-                console.log('Task updated:', task);
+            this.taskService.updateTask(this.taskId, this.taskForm.value).subscribe(() => {
                 this.dialogRef.close();
-                this.notificationService.notifyTaskUpdated();
+                this.notificationService.notifyTaskEvent("Updated");
             });
         }
     }
