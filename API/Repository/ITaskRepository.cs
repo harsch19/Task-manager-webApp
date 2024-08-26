@@ -5,8 +5,7 @@ namespace API.Repository
 {
     public interface ITaskRepository
     {
-        public void AddTask(TaskInputDto task);
-        Task SaveAllAsync();
+        public Task AddTask(TaskInputDto task);
         public Task<List<TaskData>> GetTasksAsync();
         public Task<TaskData> GetTaskByIdAsync(int id);
         public Task UpdateTask(int id, TaskInputDto task);

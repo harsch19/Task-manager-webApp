@@ -11,7 +11,7 @@ namespace API.Repository
             _context = context;
         }
 
-        public void AddTask(TaskInputDto taskInputDto) {
+        public async Task AddTask(TaskInputDto taskInputDto) {
             var title = taskInputDto.Title.ToLower();
             var desc = taskInputDto.Description;
             var status = taskInputDto.Status;
@@ -21,11 +21,7 @@ namespace API.Repository
                 Description = desc,
                 Status = status
             };
-            _context.Tasks.AddAsync(newTask); 
-        }
-
-        public async Task SaveAllAsync()
-        {
+            await _context.Tasks.AddAsync(newTask); 
             await _context.SaveChangesAsync();
         }
 
@@ -48,11 +44,13 @@ namespace API.Repository
             task.Status = taskInputDto.Status;
 
             _context.Entry(task).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteTask(int id)
         {
             _context.Tasks.Remove(await GetTaskByIdAsync(id));
+            await _context.SaveChangesAsync();
         }
     }
 }
